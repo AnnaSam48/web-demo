@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book edit details</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3> Update Book </h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-8">
+                <form action="#"
+                      th:action="@{/books/update/{id}(id=${book.id})}"
+                      th:object="${book}" method="post">
+                    <div class="row">
+                        <div class="form-group col-md-8">
+                            <label for="title" class="col-form-label">Title</label>
+                            <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="genre" class="col-form-label">Genre</label>
+                            <input type="text" th:field="*{genre}" class="form-control" id="genre" placeholder="Genre">
+                            <span class="text-danger">
+                                <td th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Genre Error</td>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="releaseYear" class="col-form-label">Release Year</label>
+                            <input type="number" th:field="*{releaseYear}" class="form-control" id="releaseYear" placeholder="Release year">
+                            <td th:if="${#fields.hasErrors('releaseYear')}" th:errors="*{releaseYear}" class="text-danger">Release Year Error</td>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <input type="submit" class="btn btn-primary"
+                                   value="Update Book">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

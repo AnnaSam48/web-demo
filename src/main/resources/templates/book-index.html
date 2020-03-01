@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <br/>
+    <form th:object="${book}" th:action="@{/books/search}" method="get">
+        <input type="text" name="searchTitle" id="searchTitle" th:value="${searchTitle}"/>
+        <input type="submit" value="Search"/>
+        <a th:href="@{/books}" class="btn btn-primary btn-sm">Reset</a>
+    </form>
+    <br/>
+    <table th:if="${not #lists.isEmpty(books)}">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Release year</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book: ${books}">
+            <td th:text="${book.title}"/>
+            <td th:text="${book.genre}"/>
+            <td th:text="${book.releaseYear}"/>
+            <td>
+                <a th:href="@{/books/edit/{id}(id=${book.id})}" class="btn btn-primary">
+                    <span>EDIT</span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:unless="${not #lists.isEmpty(books)}">No books persisted in DB yet or search did not match</div>
+    <br><br>
+    <a th:href="@{/books/add}" class="btn btn-primary">Add Book</a>
+</div>
+</body>
+</html>
