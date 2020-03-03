@@ -10,7 +10,7 @@
 
 <div class="container">
     <br/>
-    <form th:object="${book}" th:action="@{/books/search}" method="get">
+    <form th:action="@{/books/search}" method="get">
         <input type="text" name="searchTitle" id="searchTitle" th:value="${searchTitle}"/>
         <input type="submit" value="Search"/>
         <a th:href="@{/books}" class="btn btn-primary btn-sm">Reset</a>
