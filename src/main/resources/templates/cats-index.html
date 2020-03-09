@@ -8,6 +8,17 @@
 <body>
 <div class="container">
     <h3>Cats available:</h3>
+
+    <form th:action="@{/cats/search}" method="get">
+        <input type="text" name="catName" id="catName" th:value="${catName}"/>
+        <input type="submit" value="Search"/>
+        <a th:href="@{/cats}" class="btn btn-outline-primary">
+            <span>RESET</span>
+        </a>
+    </form>
+    <br>
+
+    <div th:if="${not #lists.isEmpty(cats)}">
     <table class="table table-bordered">
         <tr>
             <th>ID</th>
@@ -34,6 +45,16 @@
             </td>
         </tr>
     </table>
+    </div>
+
+    <div th:unless="${not #lists.isEmpty(cats)}">
+        <div class="card">
+            <div class="card-body">
+                No cats available.
+            </div>
+        </div>
+    </div>
+
     <div>
         <a th:href="@{/cats/add}" class="btn btn-outline-primary">Add Cat!</a>
     </div>

@@ -10,8 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CatController {
@@ -21,7 +23,7 @@ public class CatController {
 
     @GetMapping("/cats")
     public String catIndex(Model model) {
-        List<Cat> cats = catRepository.findAll();
+        Iterable<Cat> cats = catRepository.findAll();
         model.addAttribute("cats", cats);
         return "cats-index";
     }
@@ -34,14 +36,14 @@ public class CatController {
 
     @PostMapping("/cats/add-cat")
     public String addCat(Cat catToAdd) {
-        catRepository.add(catToAdd);
+        catRepository.save(catToAdd);
         return "redirect:/cats";
     }
 
     @GetMapping("/cats/edit/{id}")
     public String editCatPage(@PathVariable Long id, Model model) {
-        Cat catToEdit = catRepository.findById(id);
-        model.addAttribute("cat", catToEdit);
+        Optional<Cat> catToEdit = catRepository.findById(id);
+        model.addAttribute("cat", catToEdit.get());
         return "edit-cat";
     }
 
@@ -51,15 +53,22 @@ public class CatController {
         System.out.println("Changed id : " + editedCat.getId());
         System.out.println("Changed nickname : " + editedCat.getNickname());
 
-        catRepository.update(editedCat);
+        catRepository.save(editedCat);
 
         return "redirect:/cats";
     }
 
     @GetMapping("/cats/delete/{id}")
     public String deleteCat(@PathVariable Long id) {
-        catRepository.delete(id);
+        catRepository.deleteById(id);
         return "redirect:/cats";
+    }
+
+    @GetMapping("/cats/search")
+    public String searchCats(@RequestParam String catName, Model model) {
+        List<Cat> matchedCats = catRepository.findByNicknameContainingIgnoreCase(catName);
+        model.addAttribute("cats", matchedCats);
+        return "cats-index";
     }
 
 }
