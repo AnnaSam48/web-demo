@@ -12,11 +12,17 @@
         <tr>
             <th>ID</th>
             <th>NAME</th>
+            <th>AGE</th>
+            <th>PHOTO</th>
             <th>ACTIONS</th>
         </tr>
         <tr th:each="cat: ${cats}">
             <td th:text="${cat.id}"/>
             <td th:text="${cat.nickname}"/>
+            <td th:text="${cat.age}"/>
+            <td>
+                <img th:src="${cat.imageUrl}" height="80px"/>
+            </td>
             <td>
                 <a th:href="@{/cats/edit/{id}(id=${cat.id})}" class="btn btn-outline-primary">
                     <span>EDIT</span>

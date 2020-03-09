@@ -8,12 +8,18 @@ public class Cat implements Serializable {
 
     private String nickname;
 
+    private Integer age;
+
+    private String imageUrl;
+
     public Cat() {
     }
 
-    public Cat(Long id, String nickname) {
+    public Cat(Long id, String nickname, Integer age, String imageUrl) {
         this.id = id;
         this.nickname = nickname;
+        this.age = age;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -30,5 +36,21 @@ public class Cat implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

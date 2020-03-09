@@ -12,8 +12,8 @@ public class CatRepository {
     private List<Cat> cats = new ArrayList<>();
 
     public CatRepository() {
-        cats.add(new Cat(1L, "Muris"));
-        cats.add(new Cat(2L, "Pucinsh"));
+        cats.add(new Cat(1L, "Muris", 3, "https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg"));
+        cats.add(new Cat(2L, "Pucinsh", 5, "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/327/327448/maine-coon-cat.jpg?w=1155&h=1537"));
     }
 
     public List<Cat> findAll() {
