@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,10 @@ public class CatController {
     }
 
     @PostMapping("/cats/add-cat")
-    public String addCat(Cat catToAdd) {
+    public String addCat(@Valid Cat catToAdd, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add-cat";
+        }
         catRepository.save(catToAdd);
         return "redirect:/cats";
     }
@@ -66,7 +70,7 @@ public class CatController {
 
     @GetMapping("/cats/search")
     public String searchCats(@RequestParam String catName, Model model) {
-        List<Cat> matchedCats = catRepository.findByNicknameContainingIgnoreCase(catName);
+        List<Cat> matchedCats = catRepository.findByNickname(catName);
         model.addAttribute("cats", matchedCats);
         return "cats-index";
     }
